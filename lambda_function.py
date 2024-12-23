@@ -452,7 +452,7 @@ def lambda_handler(event, context):
     try:
         db = DynamoDB()  # Initialize the dynamo database
 
-        # db.clear_all_items()  #! Only to clear all items in DynamoDB while developing.
+        # \db.clear_all_items()  #! Only to clear all items in DynamoDB while developing.
 
         f, pc_index = init_pinecone()
         if not f:
@@ -484,7 +484,7 @@ def lambda_handler(event, context):
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'User-Agent': 'Mozilla/5.0',
-                'Authorization': 'Bearer ' + {os.getenv("WP_ACCESS_TOKEN")}  # Add Bearer token here
+                'Authorization': 'Bearer ' + os.getenv("WP_ACCESS_TOKEN")  # Add Bearer token here
             }
 
             # Send the POST request with the actual data
