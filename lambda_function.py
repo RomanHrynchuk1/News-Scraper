@@ -58,7 +58,7 @@ class KTLA_Scraper:
             link_tag = news.find("a")
             link = urljoin("https://ktla.com/", link_tag["href"]) if link_tag else ""
             if link and link not in article_urls:
-                articles.append({"title": title, "news_url": link})
+                articles.append({"news_url": link})
                 article_urls.append(link)
 
         logging.info(f"Found {len(articles)} articles.")
@@ -75,6 +75,7 @@ class KTLA_Scraper:
             dict: Updated article dictionary with author, content, etc.
         """
         try:
+            title_element = soup.select_one('h1.article-title')
             article_content = get_page_content_using_ScraperAPI(article["news_url"])
             soup = BeautifulSoup(article_content, "html.parser")
 
@@ -82,6 +83,7 @@ class KTLA_Scraper:
             posted_time = soup.select_one("p time")
             content_paragraphs = soup.select("div.article-content.article-body p")
 
+            article["title"] = title_element.get_text(strip=True)
             article["author"] = author.get_text(strip=True) if author else ""
             article["posted_time"] = posted_time["datetime"] if posted_time else ""
             article["content"] = "\n".join(
