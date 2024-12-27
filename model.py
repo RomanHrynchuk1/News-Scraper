@@ -20,11 +20,11 @@ class DynamoDB:
                     Defaults to "us-east-1".
         """
         self.dynamodb = boto3.resource(
-            "dynamodb",  #! Must ignore the below 4 lines while deploying on AWS lambda.
-            # aws_access_key_id=os.getenv("aws_access_key_id"),
-            # aws_secret_access_key=os.getenv("aws_secret_access_key"),
-            # aws_session_token=os.getenv("aws_session_token"),
-            # region_name="us-east-1",  # Specify the region of your DynamoDB
+            "dynamodb",  #!~ Must ignore the below 4 lines while deploying on AWS lambda.
+            aws_access_key_id=os.getenv("aws_access_key_id"),
+            aws_secret_access_key=os.getenv("aws_secret_access_key"),
+            aws_session_token=os.getenv("aws_session_token"),
+            region_name="us-east-1",  # Specify the region of your DynamoDB
         )
         self.table = self.dynamodb.Table(table_name)
 

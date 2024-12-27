@@ -814,6 +814,8 @@ def lambda_handler(event, context):
             print(f"{ex}\n\n{traceback.format_exc()}")
             pass
         
+        # with open ("out2.json", "w", encoding="utf-8") as f:
+        #     f.write(json.dumps(all_related_articles, indent=4))
 
         if all_related_articles:
             url = "https://lawbrothers.com/wp-json/lawbrother/v1/update-news/"
@@ -839,7 +841,7 @@ def lambda_handler(event, context):
 
         return {
             "statusCode": 200,
-            "body": json.dumps("Successfully scraped four websites -- CBS8, EastBay, Fox, and NBCBayArea"),
+            "body": json.dumps("Finished scraping four websites -- CBS8, EastBay, Fox, and NBCBayArea"),
         }
 
     except Exception as ex:
