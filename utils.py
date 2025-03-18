@@ -345,3 +345,40 @@ The output for `Rewritten article` and `Call to action` should be formatted in H
         response_json["One-sentence description"],
     )
 
+
+def generate_title_again(title: str, content: str) -> str:
+    """
+    Generate a new title for the news article using OpenAI.
+
+    Args:
+        title (str): The original title of the news article.
+        content (str): The content of the news article.
+
+    Returns:
+        str: The generated title.
+    """
+    prompt = """Generate a new title for the following car accident related news article.
+    The title should be properly formatted and should be less than 60 characters. (But do not change too much)
+    If the given title contains abbreviations, rewrite it without abbreviations based on the content.
+
+    Here is the news article:
+    #####
+    NEWS_TITLE
+
+    NEWS_CONTENT
+    #####
+
+    The output for `Rewritten title` should follow the JSON structure below:
+    ```json
+    {
+        "Rewritten title": "Rewritten title here",
+    }
+    ```
+    """
+    prompt = prompt.replace("NEWS_TITLE", title)
+    prompt = prompt.replace("NEWS_CONTENT", content)
+
+    response_json = openai_chat(prompt, True)
+
+    return response_json["Rewritten title"]
+
